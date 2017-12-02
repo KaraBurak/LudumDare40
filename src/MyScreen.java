@@ -23,12 +23,18 @@ public class MyScreen extends Screen{
     @Override
     public void onUpdate() {
         checkInputs();
+        player.moveShots();
     }
 
 
     @Override
     public void onDraw(Graphics2D g2d) {
         drawPlayer(g2d);
+        drawShots(g2d);
+    }
+
+    private void drawShots(Graphics2D g2d) {
+        player.getShots().forEach(shot -> g2d.drawImage(shot.getImage(),shot.getX(),shot.getY(), null));
     }
 
     private void drawPlayer(Graphics2D g2d) {
@@ -39,19 +45,28 @@ public class MyScreen extends Screen{
     private void checkInputs() {
         if(keyboardListener.isKeyPressed(KeyEvent.VK_W)){
             player.setY(player.getY() - 1);
+            player.setDirection(Direction.UP);
         }
 
         if(keyboardListener.isKeyPressed(KeyEvent.VK_A)){
             player.setX(player.getX() - 1);
+            player.setDirection(Direction.LEFT);
         }
 
         if(keyboardListener.isKeyPressed(KeyEvent.VK_S)){
             player.setY(player.getY() + 1);
+            player.setDirection(Direction.DOWN);
         }
 
         if(keyboardListener.isKeyPressed(KeyEvent.VK_D)){
             player.setX(player.getX() + 1);
+            player.setDirection(Direction.RIGHT);
         }
+
+        if(keyboardListener.isKeyPressed(KeyEvent.VK_SPACE)){
+            player.addShot(new Shot(player.getX(), player.getY(), player.getDirection()));
+        }
+
     }
 
 }
