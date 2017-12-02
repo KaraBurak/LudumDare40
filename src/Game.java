@@ -19,6 +19,8 @@ public class Game {
 
         gameThread = new GameThread(this);
 
+        window.add(gameThread);
+
         new Thread(gameThread).start();
     }
 
