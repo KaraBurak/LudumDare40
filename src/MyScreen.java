@@ -57,19 +57,10 @@ public class MyScreen extends Screen{
 
 
     private void checkInputs() {
-        if(keyboardListener.isKeyPressed(KeyEvent.VK_W)){
-            player.setY(player.getY() - 1);
-            player.setDirection(Direction.UP);
-        }
 
         if(keyboardListener.isKeyPressed(KeyEvent.VK_A)){
             player.setX(player.getX() - 1);
             player.setDirection(Direction.LEFT);
-        }
-
-        if(keyboardListener.isKeyPressed(KeyEvent.VK_S)){
-            player.setY(player.getY() + 1);
-            player.setDirection(Direction.DOWN);
         }
 
         if(keyboardListener.isKeyPressed(KeyEvent.VK_D)){
