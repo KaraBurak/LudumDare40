@@ -8,13 +8,15 @@ public class GameThread extends JPanel implements Runnable {
 
     private final Game game;
 
+    public static volatile boolean running = true;
+
     public GameThread(Game game){
         this.game = game;
     }
 
     @Override
     public void run() {
-        while (true){
+        while (GameThread.running){
             if(game.getScreen() != null){
                 game.getScreen().onUpdate();
                 repaint();
