@@ -6,6 +6,7 @@ import javax.swing.*;
 public class Game {
 
     private final JFrame window = new JFrame();
+    private final GameThread gameThread;
 
     public Game(){
         window.setSize(Commons.widht,Commons.height);
@@ -16,8 +17,9 @@ public class Game {
         window.setTitle(Commons.title);
         window.setVisible(true);
 
+        gameThread = new GameThread(this);
 
-
+        new Thread(gameThread).start();
     }
 
 }
