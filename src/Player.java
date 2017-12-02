@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * @author Burak Kara
@@ -57,20 +58,28 @@ public class Player extends Sprite {
     }
 
     public void moveShots(){
-        for(Shot shot : shots){
-            switch (shot.getDirection()){
-                case UP:
-                    shot.setY(shot.getY() - 2);
-                    break;
-                case DOWN:
-                    shot.setY(shot.getY() + 2);
-                    break;
-                case LEFT:
-                    shot.setX(shot.getX() - 2);
-                    break;
-                case RIGHT:
-                    shot.setX(shot.getX() + 2);
-                    break;
+        for(Iterator<Shot> it = shots.iterator(); it.hasNext();){
+
+            Shot shot = it.next();
+
+            if(shot.getY() > Commons.height || shot.getY() < 0 || shot.getX() > Commons.widht || shot.getX() < 0){
+                it.remove();
+            }else {
+
+                switch (shot.getDirection()) {
+                    case UP:
+                        shot.setY(shot.getY() - 2);
+                        break;
+                    case DOWN:
+                        shot.setY(shot.getY() + 2);
+                        break;
+                    case LEFT:
+                        shot.setX(shot.getX() - 2);
+                        break;
+                    case RIGHT:
+                        shot.setX(shot.getX() + 2);
+                        break;
+                }
             }
         }
     }
