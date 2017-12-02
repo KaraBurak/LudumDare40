@@ -11,6 +11,7 @@ public class Player extends Sprite {
 
     int pauseShootTime = 100;
     int counterPauseShoot = 101;
+    private LoadingShotRectangle loadingShotRectangle;
 
     public void setCounterPauseShoot(int counterPauseShoot) {
         this.counterPauseShoot = counterPauseShoot;
@@ -51,6 +52,14 @@ public class Player extends Sprite {
         this.direction = direction;
     }
 
+    public int getPauseShootTime() {
+        return pauseShootTime;
+    }
+
+    public LoadingShotRectangle getLoadingShotRectangle() {
+        return loadingShotRectangle;
+    }
+
     private final String pathToImage = "resources/playerMock.png";
 
     private ArrayList<Shot> shots = new ArrayList<>();
@@ -62,6 +71,7 @@ public class Player extends Sprite {
         isVisible = true;
         i_width = image.getWidth(null);
         i_height = image.getHeight(null);
+        loadingShotRectangle = new LoadingShotRectangle(x,y,i_width);
     }
 
     public void addShot(Shot shot){

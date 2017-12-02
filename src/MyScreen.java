@@ -42,6 +42,14 @@ public class MyScreen extends Screen{
         drawPlatforms(g2d);
         drawPlayer(g2d);
         drawShots(g2d);
+        drawEffects(g2d);
+    }
+
+    private void drawEffects(Graphics2D g2d) {
+        g2d.drawRect(player.getX(), player.getY() - player.getI_height() / 2, player.getLoadingShotRectangle().getWidth(), 10);
+        g2d.fillRect(player.getX(), player.getY() - player.getI_height() / 2, (int) player.getLoadingShotRectangle().
+                setRectangleWidth(player.getLoadingShotRectangle().
+                        getPercentage(player.getCounterPauseShoot(), player.getPauseShootTime())), 10);
     }
 
     private void drawPlatforms(Graphics2D g2d) {
