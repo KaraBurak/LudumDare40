@@ -115,7 +115,7 @@ public class Player extends Sprite {
         falling = true;
 
         for (Platform platform : MyScreen.platforms){
-            if (y < platform.getY() && Sprite.intersects(platform, this)){
+            if (y + i_height - 2 < platform.getY() && Sprite.intersects(platform, this)){
                 falling = false;
             }
         }
@@ -123,8 +123,6 @@ public class Player extends Sprite {
         if (falling){
             y += 1;
         }
-
-        System.out.println(falling);
 
     }
 

@@ -10,7 +10,7 @@ public class MyGame {
 
     public MyGame(){
         game = new Game();
-        player = new Player(50,300);
+        player = new Player(50,250);
         game.showScreen(new MyScreen(game,player));
     }
 
