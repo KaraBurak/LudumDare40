@@ -9,6 +9,17 @@ public class Player extends Sprite {
 
     private Direction direction;
 
+    int pauseShootTime = 100;
+    int counterPauseShoot = 101;
+
+    public void setCounterPauseShoot(int counterPauseShoot) {
+        this.counterPauseShoot = counterPauseShoot;
+    }
+
+    public int getCounterPauseShoot() {
+        return counterPauseShoot;
+    }
+
     private final int JUMPCOUNTERTHRESH = 30;
 
     public boolean isFalling() {
@@ -54,7 +65,10 @@ public class Player extends Sprite {
     }
 
     public void addShot(Shot shot){
-        shots.add(shot);
+        if(counterPauseShoot >= pauseShootTime){
+            counterPauseShoot = 0;
+            shots.add(shot);
+        }
     }
 
     public void moveShots(){

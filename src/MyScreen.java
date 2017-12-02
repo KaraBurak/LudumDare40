@@ -27,6 +27,7 @@ public class MyScreen extends Screen{
 
     @Override
     public void onUpdate() {
+        player.setCounterPauseShoot(player.getCounterPauseShoot() + 1);
         checkInputs();
         player.moveShots();
         player.checkJumpState();
