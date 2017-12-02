@@ -7,7 +7,8 @@ import java.awt.*;
 public abstract class Sprite {
 
     public Sprite(int x, int y){
-
+        this.x = x;
+        this.y = y;
     }
 
     protected boolean isVisible = false;
