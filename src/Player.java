@@ -8,6 +8,19 @@ public class Player extends Sprite {
 
     private Direction direction;
 
+    private final int JUMPCOUNTERTHRESH = 30;
+
+    private boolean jumping = false;
+    private int jumpCount = 0;
+
+    public boolean isJumping() {
+        return jumping;
+    }
+
+    public void setJumping(boolean jumping) {
+        this.jumping = jumping;
+    }
+
     public Direction getDirection() {
         return direction;
     }
@@ -55,4 +68,28 @@ public class Player extends Sprite {
     public ArrayList<Shot> getShots() {
         return shots;
     }
+
+    public void jump() {
+        jumping = true;
+        jumpCount = 0;
+    }
+
+    public void checkJumpState(){
+        if(jumping){
+            if(jumpCount < JUMPCOUNTERTHRESH){
+                y -= 3;
+            }else {
+                y += 3;
+            }
+
+            jumpCount++;
+
+            if(jumpCount >= JUMPCOUNTERTHRESH*2){
+                jumping = false;
+                jumpCount = 0;
+            }
+
+        }
+    }
+
 }

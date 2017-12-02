@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 /**
  * @author Burak Kara
@@ -8,6 +9,8 @@ public class MyScreen extends Screen{
 
     private final Player player;
     private final KeyboardListener keyboardListener;
+
+    private ArrayList<Platform> platforms = new ArrayList<>();
 
     public MyScreen(Game game, Player player) {
         super(game);
@@ -18,19 +21,27 @@ public class MyScreen extends Screen{
     @Override
     public void onCreate() {
         System.out.println("Creating");
+        platforms.add(new Platform(50,350));
+        platforms.add(new Platform(200,350));
     }
 
     @Override
     public void onUpdate() {
         checkInputs();
         player.moveShots();
+        player.checkJumpState();
     }
 
 
     @Override
     public void onDraw(Graphics2D g2d) {
+        drawPlatforms(g2d);
         drawPlayer(g2d);
         drawShots(g2d);
+    }
+
+    private void drawPlatforms(Graphics2D g2d) {
+        platforms.forEach(platform -> g2d.drawImage(platform.getImage(),platform.getX(),platform.getY(),null));
     }
 
     private void drawShots(Graphics2D g2d) {
@@ -63,8 +74,12 @@ public class MyScreen extends Screen{
             player.setDirection(Direction.RIGHT);
         }
 
-        if(keyboardListener.isKeyPressed(KeyEvent.VK_SPACE)){
+        if(keyboardListener.isKeyPressed(KeyEvent.VK_CONTROL)){
             player.addShot(new Shot(player.getX(), player.getY(), player.getDirection()));
+        }
+
+        if(keyboardListener.isKeyPressed(KeyEvent.VK_SPACE) && !player.isJumping()){
+            player.jump();
         }
 
     }
