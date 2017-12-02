@@ -10,16 +10,28 @@ public class GameThread extends JPanel implements Runnable {
 
     public static volatile boolean running = true;
 
+    private final int TICKS_PER_SECOND = 60;
+    private final int SKIP_TICKS = 1000 / TICKS_PER_SECOND;
+    private final int MAX_FRAMESKIP = 1;
+
     public GameThread(Game game){
         this.game = game;
     }
 
     @Override
     public void run() {
-        while (GameThread.running){
-            if(game.getScreen() != null){
-                game.getScreen().onUpdate();
-                repaint();
+        double next_game_tick = System.currentTimeMillis();
+        int loops;
+        while (running){
+            loops = 0;
+
+            while (loops < MAX_FRAMESKIP && System.currentTimeMillis() > next_game_tick) {
+                if (game.getScreen() != null) {
+                    game.getScreen().onUpdate();
+                    repaint();
+                }
+                next_game_tick += SKIP_TICKS;
+                loops++;
             }
         }
     }
