@@ -10,6 +10,16 @@ public class Player extends Sprite {
 
     private final int JUMPCOUNTERTHRESH = 30;
 
+    public boolean isFalling() {
+        return falling;
+    }
+
+    public void setFalling(boolean falling) {
+        this.falling = falling;
+    }
+
+    private boolean falling = true;
+
     private boolean jumping = false;
     private int jumpCount = 0;
 
@@ -70,8 +80,12 @@ public class Player extends Sprite {
     }
 
     public void jump() {
-        jumping = true;
-        jumpCount = 0;
+
+        if(!falling) {
+            jumping = true;
+            falling = false;
+            jumpCount = 0;
+        }
     }
 
     public void checkJumpState(){
@@ -86,10 +100,27 @@ public class Player extends Sprite {
 
             if(jumpCount >= JUMPCOUNTERTHRESH*2){
                 jumping = false;
+                falling = true;
                 jumpCount = 0;
             }
 
         }
+    }
+
+    public void checkFalling(ArrayList<Platform> platforms) {
+
+        for (Platform platform : platforms){
+            if (y < platform.getY() && Sprite.intersects(platform, this)){
+                falling = false;
+            }
+        }
+
+        if (falling){
+            y += 1;
+        }
+
+        System.out.println(falling);
+
     }
 
 }

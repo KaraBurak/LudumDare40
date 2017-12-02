@@ -64,4 +64,9 @@ public abstract class Sprite {
     public void setImage(Image image) {
         this.image = image;
     }
+
+    public static boolean intersects(Sprite s1, Sprite s2){
+        return s1.getX() < s2.getX() + s2.getI_width() && s1.getX() + s1.getI_width() > s2.getX() && s1.getY() < s2.getY() + s2.getI_height() && s1.getY() + s1.getI_height() > s2.getY();
+    }
+
 }

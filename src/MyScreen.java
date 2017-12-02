@@ -30,7 +30,10 @@ public class MyScreen extends Screen{
         checkInputs();
         player.moveShots();
         player.checkJumpState();
+        player.checkFalling(platforms);
     }
+
+
 
 
     @Override
