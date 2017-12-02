@@ -72,6 +72,7 @@ public class Player extends Sprite {
         i_width = image.getWidth(null);
         i_height = image.getHeight(null);
         loadingShotRectangle = new LoadingShotRectangle(x,y,i_width);
+        direction = Direction.RIGHT;
     }
 
     public void addShot(Shot shot){
