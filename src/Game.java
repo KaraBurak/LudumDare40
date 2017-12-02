@@ -1,4 +1,6 @@
 import javax.swing.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  * @author Burak Kara
@@ -8,6 +10,7 @@ public class Game {
     private final JFrame window = new JFrame();
     private final GameThread gameThread;
     private Screen screen;
+    private final KeyboardListener keyboardListener;
 
     public Game(){
         window.setSize(Commons.widht,Commons.height);
@@ -18,9 +21,18 @@ public class Game {
         window.setTitle(Commons.title);
         window.setVisible(true);
 
+        window.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                GameThread.running = false;
+            }
+        });
+
         gameThread = new GameThread(this);
+        keyboardListener = new KeyboardListener();
 
         window.add(gameThread);
+        window.addKeyListener(keyboardListener);
 
         new Thread(gameThread).start();
     }
