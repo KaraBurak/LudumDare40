@@ -14,7 +14,7 @@ public class Game {
 
     public Game(){
         window.setSize(Commons.widht,Commons.height);
-        window.setResizable(false);
+        window.setResizable(true);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setFocusable(true);
         window.setLocationRelativeTo(null);
@@ -46,4 +46,7 @@ public class Game {
         return screen;
     }
 
+    public KeyboardListener getKeyboardListener() {
+        return keyboardListener;
+    }
 }
