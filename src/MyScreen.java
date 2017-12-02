@@ -10,7 +10,7 @@ public class MyScreen extends Screen{
     private final Player player;
     private final KeyboardListener keyboardListener;
 
-    private ArrayList<Platform> platforms = new ArrayList<>();
+    public static ArrayList<Platform> platforms = new ArrayList<>();
 
     public MyScreen(Game game, Player player) {
         super(game);
@@ -22,7 +22,7 @@ public class MyScreen extends Screen{
     public void onCreate() {
         System.out.println("Creating");
         platforms.add(new Platform(50,350));
-        platforms.add(new Platform(200,350));
+        platforms.add(new Platform(250,350));
     }
 
     @Override
@@ -30,7 +30,7 @@ public class MyScreen extends Screen{
         checkInputs();
         player.moveShots();
         player.checkJumpState();
-        player.checkFalling(platforms);
+        player.checkFalling();
     }
 
 

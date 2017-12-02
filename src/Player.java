@@ -80,7 +80,6 @@ public class Player extends Sprite {
     }
 
     public void jump() {
-
         if(!falling) {
             jumping = true;
             falling = false;
@@ -91,9 +90,13 @@ public class Player extends Sprite {
     public void checkJumpState(){
         if(jumping){
             if(jumpCount < JUMPCOUNTERTHRESH){
-                y -= 3;
+                y -= 5;
             }else {
-                y += 3;
+                checkFalling();
+                if (!falling){
+                    jumpCount = jumpCount*2;
+                }
+                y += 2;
             }
 
             jumpCount++;
@@ -107,9 +110,11 @@ public class Player extends Sprite {
         }
     }
 
-    public void checkFalling(ArrayList<Platform> platforms) {
+    public void checkFalling() {
 
-        for (Platform platform : platforms){
+        falling = true;
+
+        for (Platform platform : MyScreen.platforms){
             if (y < platform.getY() && Sprite.intersects(platform, this)){
                 falling = false;
             }
