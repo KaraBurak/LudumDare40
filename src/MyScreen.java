@@ -31,10 +31,6 @@ public class MyScreen extends Screen{
     public void onUpdate() {
         checkPlayers();
         checkInputs();
-        player1.setCounterPauseShoot(player1.getCounterPauseShoot() + 1);
-        player1.moveShots();
-        player1.checkJumpState();
-        player1.checkFalling();
     }
 
     private void checkPlayers() {
