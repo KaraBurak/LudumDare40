@@ -125,7 +125,7 @@ public class Player extends Sprite {
     public void checkFalling() {
         falling = true;
         for (Platform platform : MyScreen.platforms){
-            if (y + i_height - 2 < platform.getY() && Sprite.intersects(platform, this)){
+            if (y + i_height - 4 < platform.getY() && Sprite.intersects(platform, this)){
                 falling = false;
             }
         }
