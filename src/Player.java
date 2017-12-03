@@ -126,6 +126,7 @@ public class Player extends Sprite {
                     this.shots.remove(shot);
                     shots.remove(shot2);
                     hasHit = true;
+                    MyScreen.screenshake = true;
                 }
             }
         }

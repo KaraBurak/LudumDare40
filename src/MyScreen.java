@@ -18,6 +18,9 @@ public class MyScreen extends Screen{
     public static ArrayList<Platform> platforms = new ArrayList<>();
     private ArrayList<Upgrade> upgrades = new ArrayList<>();
 
+    static boolean screenshake = false;
+    private int screenshakeCounter = 0;
+
     private final Background background;
 
     static String winningMessage;
@@ -70,7 +73,26 @@ public class MyScreen extends Screen{
     }
 
     private void drawBackground(Graphics2D g2d) {
-        g2d.drawImage(background.getImage(), background.getX(),background.getY(),null);
+
+        if(screenshake){
+            if(screenshakeCounter % 2 == 0){
+                g2d.drawImage(background.getImage(), background.getX() - 32,background.getY() - 32,null);
+            }else if(screenshakeCounter % 3 == 0){
+                g2d.drawImage(background.getImage(), background.getX() + 32,background.getY() + 32,null);
+            }else if (screenshakeCounter % 5 == 0){
+                g2d.setColor(Color.BLACK);
+                g2d.fillRect(0,0,Commons.widht, Commons.height);
+            }
+
+            if(screenshakeCounter >= 21)
+                screenshake = false;
+
+            screenshakeCounter++;
+        }else {
+            screenshakeCounter = 0;
+            g2d.drawImage(background.getImage(), background.getX(),background.getY(),null);
+        }
+
     }
 
     private void addUpgrade() {
