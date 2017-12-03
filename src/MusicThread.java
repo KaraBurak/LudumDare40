@@ -14,14 +14,8 @@ public class MusicThread implements Runnable {
             Clip clip = AudioSystem.getClip();
 
             clip.open(ais);
-            clip.start();
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
 
-            while (!clip.isRunning())
-                Thread.sleep(10);
-            while (clip.isRunning())
-                Thread.sleep(10);
-
-            clip.close();
         }catch(Exception ex){
             ex.printStackTrace();
         }
