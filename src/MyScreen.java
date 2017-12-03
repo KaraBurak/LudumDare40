@@ -202,7 +202,7 @@ public class MyScreen extends Screen{
         if(keyboardListener.isKeyPressed(KeyEvent.VK_CONTROL)){
             player1.addShot(new Shot(player1.getX(), player1.getY(), player1.getDirection()));
         }
-        if(keyboardListener.isKeyPressed(KeyEvent.VK_SPACE) && !player1.isJumping()){
+        if(keyboardListener.isKeyPressed(KeyEvent.VK_W) && !player1.isJumping()){
             player1.jump();
         }
         if(getGame().getKeyboardListener().isKeyPressed(KeyEvent.VK_LEFT)) {
@@ -219,7 +219,7 @@ public class MyScreen extends Screen{
         if(keyboardListener.isKeyPressed(KeyEvent.VK_UP) && !player2.isJumping()){
             player2.jump();
         }
-        if(keyboardListener.isKeyPressed(KeyEvent.VK_DOWN)){
+        if(keyboardListener.isKeyPressed(KeyEvent.VK_SPACE)){
             player2.addShot(new Shot(player2.getX(), player2.getY(), player2.getDirection()));
         }
     }
