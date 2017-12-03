@@ -25,7 +25,7 @@ public class Player extends Sprite {
     private int upgradeStoneCounter = 0;
     private int upgrageLightningCounter = 0;
 
-    private double fallingSpeed = 2;
+    private int fallingSpeed = 4;
 
     private int hitTimes = 0;
 
@@ -40,13 +40,13 @@ public class Player extends Sprite {
     private ImageIcon imageIconRight;
     private ImageIcon imageIconLeft;
 
-    private double speed = 2;
+    private int speed = 8;
 
-    public double getSpeed() {
+    public int getSpeed() {
         return speed;
     }
 
-    public void setSpeed(double speed) {
+    public void setSpeed(int speed) {
         this.speed = speed;
     }
 
@@ -71,6 +71,9 @@ public class Player extends Sprite {
 
     public void setUpgradeIceCounter(int upgradeIceCounter) {
         this.upgradeIceCounter = upgradeIceCounter;
+        if(this.upgradeIceCounter - 1 != 0){
+            speed -= this.upgradeIceCounter - 1;
+        }
     }
 
     public int getUpgradeStoneCounter() {
@@ -79,6 +82,9 @@ public class Player extends Sprite {
 
     public void setUpgradeStoneCounter(int upgradeStoneCounter) {
         this.upgradeStoneCounter = upgradeStoneCounter;
+        if(this.upgradeStoneCounter - 1 != 0){
+            fallingSpeed -= this.upgradeStoneCounter - 1;
+        }
     }
 
     public int getUpgrageLightningCounter() {
@@ -113,11 +119,11 @@ public class Player extends Sprite {
         return hasHit;
     }
 
-    public double getFallingSpeed() {
+    public int getFallingSpeed() {
         return fallingSpeed;
     }
 
-    public void setFallingSpeed(double fallingSpeed) {
+    public void setFallingSpeed(int fallingSpeed) {
         this.fallingSpeed = fallingSpeed;
     }
 
@@ -130,11 +136,11 @@ public class Player extends Sprite {
                 it.remove();
 
                 if (upgradeIceCounter > 0){
-                    player.setSpeed(player.getSpeed() - 0.2);
+                    player.setSpeed((int) (player.getSpeed() - 0.1));
                 }
 
                 if(upgradeStoneCounter > 0){
-                    player.setFallingSpeed(player.getFallingSpeed() + 0.2);
+                    player.setFallingSpeed((int) (player.getFallingSpeed() - 0.1));
                 }
 
                 player.setKnockback(true);
@@ -166,7 +172,7 @@ public class Player extends Sprite {
     public void checkJumpState(){
         if(jumping){
             if(jumpCount < JUMPCOUNTERTHRESH){
-                y -= 6;
+                y -= 8;
             }else {
                 checkFalling();
                 if (falling){
@@ -186,7 +192,7 @@ public class Player extends Sprite {
     public void checkFalling() {
         falling = true;
         for (Platform platform : MyScreen.platforms){
-            if (y + i_height - 10 < platform.getY() && Sprite.intersects(platform, this)){
+            if (y + i_height - 4 < platform.getY() && Sprite.intersects(platform, this)){
                 falling = false;
             }
         }
