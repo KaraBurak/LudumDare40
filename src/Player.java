@@ -21,11 +21,15 @@ public class Player extends Sprite {
     private int shotSpeed = 5;
     private ArrayList<Shot> shots = new ArrayList<>();
 
+    private int speedDivider = 1;
+
+    private double knockbackMultiplicator = 1;
+
     private int upgradeIceCounter = 0;
     private int upgradeStoneCounter = 0;
     private int upgrageLightningCounter = 0;
 
-    private int fallingSpeed = 4;
+    private int fallingSpeed = 3;
 
     private int hitTimes = 0;
 
@@ -93,6 +97,12 @@ public class Player extends Sprite {
 
     public void setUpgrageLightningCounter(int upgrageLightningCounter) {
         this.upgrageLightningCounter = upgrageLightningCounter;
+        if(this.upgrageLightningCounter - 1 != 0){
+            knockbackMultiplicator += 0.1;
+        }else {
+            System.out.println("moa speed");
+            speed += 1;
+        }
     }
 
     public void addShot(Shot shot){
@@ -196,21 +206,26 @@ public class Player extends Sprite {
                 falling = false;
             }
         }
+        speedDivider = 1;
         if (falling){
+            speedDivider = 2;
             y += fallingSpeed;
         }
     }
 
+    public int getSpeedDivider() {
+        return speedDivider;
+    }
+
     public void checkKockback(){
         if(knockback){
-
             knockbackCount++;
-            y -= 2 * ((hitTimes / 4) + 1);
+            y -= 2 * ((hitTimes / 3) + 1) * knockbackMultiplicator;
 
             if(knockbackDirection == Direction.LEFT)
-                x -= 2 * ((hitTimes / 2) + 1);
+                x -= 2 * ((hitTimes / 2) + 1) * knockbackMultiplicator;
             if(knockbackDirection == Direction.RIGHT)
-                x += 2 * ((hitTimes / 2) + 1);
+                x += 2 * ((hitTimes / 2) + 1) * knockbackMultiplicator;
 
             if(knockbackCount >= KNOCKBACKTHRESH * 2){
                 knockback = false;
