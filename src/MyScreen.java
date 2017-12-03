@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * @author Burak Kara
@@ -12,6 +13,9 @@ public class MyScreen extends Screen{
     private final KeyboardListener keyboardListener;
 
     public static ArrayList<Platform> platforms = new ArrayList<>();
+
+    private ArrayList<Upgrade> upgrades = new ArrayList<>();
+
 
     public MyScreen(Game game, Player player1, Player player2) {
         super(game);
@@ -25,13 +29,27 @@ public class MyScreen extends Screen{
         System.out.println("Creating");
         platforms.add(new Platform(50,350));
         platforms.add(new Platform(250,350));
+        upgrades.add(new Upgrade(180,305));
     }
 
     @Override
     public void onUpdate() {
         checkPlayers();
         player1.collisionShots(player2.getShots());
+        checkCollisionUpgrades();
         checkInputs();
+    }
+
+    private void checkCollisionUpgrades() {
+        for(Iterator<Upgrade> it = upgrades.iterator(); it.hasNext();){
+            Upgrade upgrade = it.next();
+            if(Sprite.intersects(player1, upgrade)){
+                it.remove();
+            }
+            if (Sprite.intersects(player2, upgrade)){
+                it.remove();
+            }
+        }
     }
 
     private void checkPlayers() {
@@ -43,7 +61,6 @@ public class MyScreen extends Screen{
         player1.checkKockback();
         player2.checkKockback();
 
-
         player2.setCounterPauseShoot(player2.getCounterPauseShoot() + 1);
         player2.moveShots(player1);
         player2.checkJumpState();
@@ -54,9 +71,14 @@ public class MyScreen extends Screen{
     @Override
     public void onDraw(Graphics2D g2d) {
         drawPlatforms(g2d);
+        drawUpgrades(g2d);
         drawPlayer(g2d);
         drawShots(g2d);
         drawEffects(g2d);
+    }
+
+    private void drawUpgrades(Graphics2D g2d) {
+        upgrades.forEach(upgrade -> g2d.drawImage(upgrade.getImage(), upgrade.getX(), upgrade.getY(), null));
     }
 
     private void drawEffects(Graphics2D g2d) {
