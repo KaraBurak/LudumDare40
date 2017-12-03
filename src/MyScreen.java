@@ -7,14 +7,16 @@ import java.util.ArrayList;
  */
 public class MyScreen extends Screen{
 
-    private final Player player;
+    private final Player player1;
+    private final Player player2;
     private final KeyboardListener keyboardListener;
 
     public static ArrayList<Platform> platforms = new ArrayList<>();
 
-    public MyScreen(Game game, Player player) {
+    public MyScreen(Game game, Player player1, Player player2) {
         super(game);
-        this.player = player;
+        this.player1 = player1;
+        this.player2 = player2;
         this.keyboardListener = game.getKeyboardListener();
     }
 
@@ -27,14 +29,25 @@ public class MyScreen extends Screen{
 
     @Override
     public void onUpdate() {
-        player.setCounterPauseShoot(player.getCounterPauseShoot() + 1);
+        checkPlayers();
         checkInputs();
-        player.moveShots();
-        player.checkJumpState();
-        player.checkFalling();
+        player1.setCounterPauseShoot(player1.getCounterPauseShoot() + 1);
+        player1.moveShots();
+        player1.checkJumpState();
+        player1.checkFalling();
     }
 
+    private void checkPlayers() {
+        player1.setCounterPauseShoot(player1.getCounterPauseShoot() + 1);
+        player1.moveShots();
+        player1.checkJumpState();
+        player1.checkFalling();
 
+        player2.setCounterPauseShoot(player2.getCounterPauseShoot() + 1);
+        player2.moveShots();
+        player2.checkJumpState();
+        player2.checkFalling();
+    }
 
 
     @Override
@@ -46,10 +59,18 @@ public class MyScreen extends Screen{
     }
 
     private void drawEffects(Graphics2D g2d) {
-        g2d.drawRect(player.getX(), player.getY() - player.getI_height() / 2, player.getLoadingShotRectangle().getWidth(), 10);
-        g2d.fillRect(player.getX(), player.getY() - player.getI_height() / 2, (int) player.getLoadingShotRectangle().
-                setRectangleWidth(player.getLoadingShotRectangle().
-                        getPercentage(player.getCounterPauseShoot(), player.getPauseShootTime())), 10);
+        g2d.drawRect(player1.getX(), player1.getY() - player1.getI_height() / 2, player1.getLoadingShotRectangle().getWidth(), 10);
+        g2d.fillRect(player1.getX(), player1.getY() - player1.getI_height() / 2, (int) player1.getLoadingShotRectangle().
+                setRectangleWidth(player1.getLoadingShotRectangle().
+                        getPercentage(player1.getCounterPauseShoot(),
+                                player1.getPauseShootTime())), 10);
+
+        g2d.drawRect(player2.getX(), player2.getY() - player2.getI_height() / 2, player2.getLoadingShotRectangle().getWidth(), 10);
+        g2d.fillRect(player2.getX(), player2.getY() - player2.getI_height() / 2, (int) player2.getLoadingShotRectangle().
+                setRectangleWidth(player2.getLoadingShotRectangle().
+                        getPercentage(player2.getCounterPauseShoot(),
+                                player2.getPauseShootTime())), 10);
+
     }
 
     private void drawPlatforms(Graphics2D g2d) {
@@ -57,32 +78,47 @@ public class MyScreen extends Screen{
     }
 
     private void drawShots(Graphics2D g2d) {
-        player.getShots().forEach(shot -> g2d.drawImage(shot.getImage(),shot.getX(),shot.getY(), null));
+        player1.getShots().forEach(shot -> g2d.drawImage(shot.getImage(),shot.getX(),shot.getY(), null));
     }
 
     private void drawPlayer(Graphics2D g2d) {
-        g2d.drawImage(player.getImage(),player.getX(), player.getY(), null);
+        g2d.drawImage(player1.getImage(), player1.getX(), player1.getY(), null);
+        g2d.drawImage(player2.getImage(), player2.getX(), player2.getY(), null);
     }
 
 
     private void checkInputs() {
 
         if(keyboardListener.isKeyPressed(KeyEvent.VK_A)){
-            player.setX(player.getX() - 1);
-            player.setDirection(Direction.LEFT);
+            player1.setX(player1.getX() - 1);
+            player1.setDirection(Direction.LEFT);
         }
 
         if(keyboardListener.isKeyPressed(KeyEvent.VK_D)){
-            player.setX(player.getX() + 1);
-            player.setDirection(Direction.RIGHT);
+            player1.setX(player1.getX() + 1);
+            player1.setDirection(Direction.RIGHT);
         }
 
         if(keyboardListener.isKeyPressed(KeyEvent.VK_CONTROL)){
-            player.addShot(new Shot(player.getX(), player.getY(), player.getDirection()));
+            player1.addShot(new Shot(player1.getX(), player1.getY(), player1.getDirection()));
         }
 
-        if(keyboardListener.isKeyPressed(KeyEvent.VK_SPACE) && !player.isJumping()){
-            player.jump();
+        if(keyboardListener.isKeyPressed(KeyEvent.VK_SPACE) && !player1.isJumping()){
+            player1.jump();
+        }
+
+        if(getGame().getKeyboardListener().isKeyPressed(KeyEvent.VK_LEFT)) {
+            player2.setX(player2.getX() - 2);
+            player2.setDirection(Direction.LEFT);
+        }
+
+        if(getGame().getKeyboardListener().isKeyPressed(KeyEvent.VK_RIGHT)) {
+            player2.setX(player2.getX() + 2);
+            player2.setDirection(Direction.RIGHT);
+        }
+
+        if(keyboardListener.isKeyPressed(KeyEvent.VK_UP) && !player2.isJumping()){
+            player2.jump();
         }
 
     }

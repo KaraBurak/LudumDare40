@@ -60,11 +60,10 @@ public class Player extends Sprite {
         return loadingShotRectangle;
     }
 
-    private final String pathToImage = "resources/playerMock.png";
 
     private ArrayList<Shot> shots = new ArrayList<>();
 
-    public Player(int x, int y) {
+    public Player(int x, int y, String pathToImage) {
         super(x, y);
         ii = new ImageIcon(this.getClass().getResource(pathToImage));
         image = ii.getImage();
