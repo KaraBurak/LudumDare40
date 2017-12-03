@@ -18,7 +18,7 @@ public class Upgrade extends Sprite {
     public Upgrade(int x, int y, int random) {
         super(x, y);
         setType(random);
-        ii = new ImageIcon(this.getClass().getResource("resources/upgradeMock.png"));
+        ii = new ImageIcon(this.getClass().getResource("resources/upgrade.png"));
         image = ii.getImage();
 
         isVisible = true;

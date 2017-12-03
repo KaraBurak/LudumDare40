@@ -9,7 +9,7 @@ public class Shot extends Sprite{
 
     public Shot(int x, int y, Direction direction) {
         super(x, y);
-        ImageIcon ii = new ImageIcon(this.getClass().getResource("resources/shotMock.png"));
+        ImageIcon ii = new ImageIcon(this.getClass().getResource("resources/shot.png"));
         image = ii.getImage();
         isVisible = true;
         i_width = image.getWidth(null);
