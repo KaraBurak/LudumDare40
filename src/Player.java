@@ -62,6 +62,7 @@ public class Player extends Sprite {
             }else if(Sprite.intersects(player,shot)){
                 it.remove();
                 player.setKnockback(true);
+                player.setJumping(false);
                 player.setKnockbackDirection(shot.getDirection());
             }else {
 
@@ -159,6 +160,10 @@ public class Player extends Sprite {
 
     public boolean isJumping() {
         return jumping;
+    }
+
+    public void setJumping(boolean jumping){
+        this.jumping = jumping;
     }
 
     public Direction getDirection() {
