@@ -2,6 +2,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Random;
 
 /**
  * @author Burak Kara
@@ -11,6 +12,11 @@ public class MyScreen extends Screen{
     private final Player player1;
     private final Player player2;
     private final KeyboardListener keyboardListener;
+
+    private int newUpgradeCounter = 0;
+    private int newUpgradeThresh = 100;
+
+    private Random random = new Random();
 
     public static ArrayList<Platform> platforms = new ArrayList<>();
 
@@ -34,10 +40,21 @@ public class MyScreen extends Screen{
 
     @Override
     public void onUpdate() {
+        addUpgrade();
         checkPlayers();
         player1.collisionShots(player2.getShots());
         checkCollisionUpgrades();
         checkInputs();
+    }
+
+    private void addUpgrade() {
+        newUpgradeCounter++;
+        if(newUpgradeCounter >= newUpgradeThresh){
+            newUpgradeCounter = 0;
+            newUpgradeThresh = random.nextInt((500 - 200) + 1) + 200;
+            upgrades.add(new Upgrade(20,200));
+        }
+
     }
 
     private void checkCollisionUpgrades() {
