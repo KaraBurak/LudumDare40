@@ -81,12 +81,14 @@ public class Player extends Sprite {
         }
     }
 
-    public void moveShots(){
+    public void moveShots(Player player){
         for(Iterator<Shot> it = shots.iterator(); it.hasNext();){
 
             Shot shot = it.next();
 
             if(shot.getY() > Commons.height || shot.getY() < 0 || shot.getX() > Commons.widht || shot.getX() < 0){
+                it.remove();
+            }else if(Sprite.intersects(player,shot)){
                 it.remove();
             }else {
 

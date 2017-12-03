@@ -35,12 +35,12 @@ public class MyScreen extends Screen{
 
     private void checkPlayers() {
         player1.setCounterPauseShoot(player1.getCounterPauseShoot() + 1);
-        player1.moveShots();
+        player1.moveShots(player2);
         player1.checkJumpState();
         player1.checkFalling();
 
         player2.setCounterPauseShoot(player2.getCounterPauseShoot() + 1);
-        player2.moveShots();
+        player2.moveShots(player1);
         player2.checkJumpState();
         player2.checkFalling();
     }
@@ -75,6 +75,7 @@ public class MyScreen extends Screen{
 
     private void drawShots(Graphics2D g2d) {
         player1.getShots().forEach(shot -> g2d.drawImage(shot.getImage(),shot.getX(),shot.getY(), null));
+        player2.getShots().forEach(shot -> g2d.drawImage(shot.getImage(),shot.getX(),shot.getY(), null));
     }
 
     private void drawPlayer(Graphics2D g2d) {
@@ -115,6 +116,10 @@ public class MyScreen extends Screen{
 
         if(keyboardListener.isKeyPressed(KeyEvent.VK_UP) && !player2.isJumping()){
             player2.jump();
+        }
+
+        if(keyboardListener.isKeyPressed(KeyEvent.VK_DOWN)){
+            player2.addShot(new Shot(player2.getX(), player2.getY(), player2.getDirection()));
         }
 
     }
