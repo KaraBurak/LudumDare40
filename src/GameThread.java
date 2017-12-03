@@ -7,9 +7,7 @@ import java.awt.*;
 public class GameThread extends JPanel implements Runnable {
 
     private final Game game;
-
     public static volatile boolean running = true;
-
     private final int TICKS_PER_SECOND = 60;
     private final int SKIP_TICKS = 1000 / TICKS_PER_SECOND;
     private final int MAX_FRAMESKIP = 1;
@@ -24,7 +22,6 @@ public class GameThread extends JPanel implements Runnable {
         int loops;
         while (running){
             loops = 0;
-
             while (loops < MAX_FRAMESKIP && System.currentTimeMillis() > next_game_tick) {
                 if (game.getScreen() != null) {
                     game.getScreen().onUpdate();

@@ -6,76 +6,18 @@ import java.util.Iterator;
  * @author Burak Kara
  */
 public class Player extends Sprite {
-
     private Direction direction;
-
     int pauseShootTime = 100;
     int counterPauseShoot = 101;
     private LoadingShotRectangle loadingShotRectangle;
-
     private boolean knockback = false;
-
     private int knockbackCount = 0;
     private final int KNOCKBACKTHRESH = 20;
-
     private Direction knockbackDirection;
-
-    public Direction getKnockbackDirection() {
-        return knockbackDirection;
-    }
-
-    public void setKnockbackDirection(Direction knockbackDirection) {
-        this.knockbackDirection = knockbackDirection;
-    }
-
-    public void setCounterPauseShoot(int counterPauseShoot) {
-        this.counterPauseShoot = counterPauseShoot;
-    }
-
-    public int getCounterPauseShoot() {
-        return counterPauseShoot;
-    }
-
     private final int JUMPCOUNTERTHRESH = 30;
-
-    public boolean isFalling() {
-        return falling;
-    }
-
-    public void setFalling(boolean falling) {
-        this.falling = falling;
-    }
-
     private boolean falling = true;
-
     private boolean jumping = false;
     private int jumpCount = 0;
-
-    public boolean isJumping() {
-        return jumping;
-    }
-
-    public void setJumping(boolean jumping) {
-        this.jumping = jumping;
-    }
-
-    public Direction getDirection() {
-        return direction;
-    }
-
-    public void setDirection(Direction direction) {
-        this.direction = direction;
-    }
-
-    public int getPauseShootTime() {
-        return pauseShootTime;
-    }
-
-    public LoadingShotRectangle getLoadingShotRectangle() {
-        return loadingShotRectangle;
-    }
-
-
     private ArrayList<Shot> shots = new ArrayList<>();
 
     public Player(int x, int y, String pathToImage) {
@@ -112,15 +54,9 @@ public class Player extends Sprite {
         return hasHit;
     }
 
-    public void setKnockback(boolean knockback) {
-        this.knockback = knockback;
-    }
-
     public void moveShots(Player player){
         for(Iterator<Shot> it = shots.iterator(); it.hasNext();){
-
             Shot shot = it.next();
-
             if(shot.getY() > Commons.height || shot.getY() < 0 || shot.getX() > Commons.widht || shot.getX() < 0){
                 it.remove();
             }else if(Sprite.intersects(player,shot)){
@@ -147,10 +83,6 @@ public class Player extends Sprite {
         }
     }
 
-    public ArrayList<Shot> getShots() {
-        return shots;
-    }
-
     public void jump() {
         if(!falling) {
             jumping = true;
@@ -170,9 +102,7 @@ public class Player extends Sprite {
                 }
                 y += 2;
             }
-
             jumpCount++;
-
             if(jumpCount >= JUMPCOUNTERTHRESH*2){
                 jumping = false;
                 falling = true;
@@ -198,9 +128,7 @@ public class Player extends Sprite {
             if(knockbackCount < KNOCKBACKTHRESH*2){
                 y -= 3;
             }
-
             knockbackCount++;
-
             if(knockbackCount >= KNOCKBACKTHRESH){
 
                 if(knockbackDirection == Direction.LEFT)
@@ -208,7 +136,6 @@ public class Player extends Sprite {
                 if(knockbackDirection == Direction.RIGHT)
                     x++;
             }
-
             if(knockbackCount >= KNOCKBACKTHRESH * 2){
                 knockback = false;
                 falling = true;
@@ -216,6 +143,46 @@ public class Player extends Sprite {
             }
 
         }
+    }
+
+    public void setKnockbackDirection(Direction knockbackDirection) {
+        this.knockbackDirection = knockbackDirection;
+    }
+
+    public void setCounterPauseShoot(int counterPauseShoot) {
+        this.counterPauseShoot = counterPauseShoot;
+    }
+
+    public int getCounterPauseShoot() {
+        return counterPauseShoot;
+    }
+
+    public boolean isJumping() {
+        return jumping;
+    }
+
+    public Direction getDirection() {
+        return direction;
+    }
+
+    public void setDirection(Direction direction) {
+        this.direction = direction;
+    }
+
+    public int getPauseShootTime() {
+        return pauseShootTime;
+    }
+
+    public LoadingShotRectangle getLoadingShotRectangle() {
+        return loadingShotRectangle;
+    }
+
+    public ArrayList<Shot> getShots() {
+        return shots;
+    }
+
+    public void setKnockback(boolean knockback) {
+        this.knockback = knockback;
     }
 
 }

@@ -12,16 +12,11 @@ public class MyScreen extends Screen{
     private final Player player1;
     private final Player player2;
     private final KeyboardListener keyboardListener;
-
     private int newUpgradeCounter = 0;
     private int newUpgradeThresh = 100;
-
     private Random random = new Random();
-
     public static ArrayList<Platform> platforms = new ArrayList<>();
-
     private ArrayList<Upgrade> upgrades = new ArrayList<>();
-
 
     public MyScreen(Game game, Player player1, Player player2) {
         super(game);
@@ -35,7 +30,6 @@ public class MyScreen extends Screen{
         System.out.println("Creating");
         platforms.add(new Platform(50,350));
         platforms.add(new Platform(250,350));
-        upgrades.add(new Upgrade(180,305));
     }
 
     @Override
@@ -47,6 +41,15 @@ public class MyScreen extends Screen{
         checkInputs();
     }
 
+    @Override
+    public void onDraw(Graphics2D g2d) {
+        drawPlatforms(g2d);
+        drawUpgrades(g2d);
+        drawPlayer(g2d);
+        drawShots(g2d);
+        drawEffects(g2d);
+    }
+
     private void addUpgrade() {
         newUpgradeCounter++;
         if(newUpgradeCounter >= newUpgradeThresh){
@@ -54,7 +57,6 @@ public class MyScreen extends Screen{
             newUpgradeThresh = random.nextInt((500 - 200) + 1) + 200;
             upgrades.add(new Upgrade(20,200));
         }
-
     }
 
     private void checkCollisionUpgrades() {
@@ -82,16 +84,6 @@ public class MyScreen extends Screen{
         player2.moveShots(player1);
         player2.checkJumpState();
         player2.checkFalling();
-    }
-
-
-    @Override
-    public void onDraw(Graphics2D g2d) {
-        drawPlatforms(g2d);
-        drawUpgrades(g2d);
-        drawPlayer(g2d);
-        drawShots(g2d);
-        drawEffects(g2d);
     }
 
     private void drawUpgrades(Graphics2D g2d) {
@@ -126,7 +118,6 @@ public class MyScreen extends Screen{
         g2d.drawImage(player1.getImage(), player1.getX(), player1.getY(), null);
         g2d.drawImage(player2.getImage(), player2.getX(), player2.getY(), null);
     }
-
 
     private void checkInputs() {
 
