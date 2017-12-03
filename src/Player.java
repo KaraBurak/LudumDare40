@@ -20,43 +20,16 @@ public class Player extends Sprite {
     private int jumpCount = 0;
     private int shotSpeed = 5;
     private ArrayList<Shot> shots = new ArrayList<>();
-
     private int speedDivider = 1;
-
     private double knockbackMultiplicator = 1;
-
     private int upgradeIceCounter = 0;
     private int upgradeStoneCounter = 0;
     private int upgrageLightningCounter = 0;
-
     private int fallingSpeed = 2;
-
     private int hitTimes = 0;
-
-    public void setKnockbackCount(int knockbackCount) {
-        this.knockbackCount = knockbackCount;
-    }
-
-    public int getHitTimes() {
-        return hitTimes;
-    }
-
-    public void setHitTimes(int hitTimes) {
-        this.hitTimes = hitTimes;
-    }
-
     private ImageIcon imageIconRight;
     private ImageIcon imageIconLeft;
-
     private int speed = 8;
-
-    public int getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
 
     public Player(int x, int y, String pathToImage1, String pathToImage2) {
         super(x, y);
@@ -73,39 +46,10 @@ public class Player extends Sprite {
         direction = Direction.RIGHT;
     }
 
-    public int getUpgradeIceCounter() {
-        return upgradeIceCounter;
-    }
-
-    public void setUpgradeIceCounter(int upgradeIceCounter) {
-        this.upgradeIceCounter = upgradeIceCounter;
-        speed -= this.upgradeIceCounter - 1;
-    }
-
-    public int getUpgradeStoneCounter() {
-        return upgradeStoneCounter;
-    }
-
-    public void setUpgradeStoneCounter(int upgradeStoneCounter) {
-        this.upgradeStoneCounter = upgradeStoneCounter;
-        fallingSpeed -= this.upgradeStoneCounter - 1;
-    }
-
-    public int getUpgrageLightningCounter() {
-        return upgrageLightningCounter;
-    }
-
-    public void setUpgrageLightningCounter(int upgrageLightningCounter) {
-        this.upgrageLightningCounter = upgrageLightningCounter;
-        knockbackMultiplicator += 0.1;
-        if(this.upgrageLightningCounter - 1 == 0)
-            speed += 1;
-    }
 
     public void addShot(Shot shot){
         if(counterPauseShoot >= pauseShootTime){
             counterPauseShoot = 0;
-
             shots.add(shot);
         }
     }
@@ -125,14 +69,6 @@ public class Player extends Sprite {
             }
         }
         return hasHit;
-    }
-
-    public int getFallingSpeed() {
-        return fallingSpeed;
-    }
-
-    public void setFallingSpeed(int fallingSpeed) {
-        this.fallingSpeed = fallingSpeed;
     }
 
     public void moveShots(Player player){
@@ -216,10 +152,6 @@ public class Player extends Sprite {
         }
     }
 
-    public int getSpeedDivider() {
-        return speedDivider;
-    }
-
     public void checkKockback(){
         if(knockback){
             falling = true;
@@ -238,6 +170,38 @@ public class Player extends Sprite {
             }
 
         }
+    }
+
+    public void setKnockbackCount(int knockbackCount) {
+        this.knockbackCount = knockbackCount;
+    }
+
+    public int getHitTimes() {
+        return hitTimes;
+    }
+
+    public void setHitTimes(int hitTimes) {
+        this.hitTimes = hitTimes;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public int getFallingSpeed() {
+        return fallingSpeed;
+    }
+
+    public void setFallingSpeed(int fallingSpeed) {
+        this.fallingSpeed = fallingSpeed;
+    }
+
+    public int getSpeedDivider() {
+        return speedDivider;
     }
 
     public void setKnockbackDirection(Direction knockbackDirection) {
@@ -290,6 +254,32 @@ public class Player extends Sprite {
 
     public void setImageRight() {
         image = imageIconRight.getImage();
+    }
+
+
+    public void setUpgradeIceCounter(int upgradeIceCounter) {
+        this.upgradeIceCounter = upgradeIceCounter;
+        speed -= this.upgradeIceCounter - 1;
+    }
+
+    public int getUpgradeStoneCounter() {
+        return upgradeStoneCounter;
+    }
+
+    public void setUpgradeStoneCounter(int upgradeStoneCounter) {
+        this.upgradeStoneCounter = upgradeStoneCounter;
+        fallingSpeed -= this.upgradeStoneCounter - 1;
+    }
+
+    public int getUpgrageLightningCounter() {
+        return upgrageLightningCounter;
+    }
+
+    public void setUpgrageLightningCounter(int upgrageLightningCounter) {
+        this.upgrageLightningCounter = upgrageLightningCounter;
+        knockbackMultiplicator += 0.1;
+        if(this.upgrageLightningCounter - 1 == 0)
+            speed += 1;
     }
 
 }

@@ -17,12 +17,9 @@ public class MyScreen extends Screen{
     private Random random = new Random();
     public static ArrayList<Platform> platforms = new ArrayList<>();
     private ArrayList<Upgrade> upgrades = new ArrayList<>();
-
     static boolean screenshake = false;
     private int screenshakeCounter = 0;
-
     private final Background background;
-
     static String winningMessage;
 
     public MyScreen(Game game, Player player1, Player player2) {
@@ -41,14 +38,10 @@ public class MyScreen extends Screen{
         platforms.add(new Platform(640,480));
         platforms.add(new Platform(800,480));
         platforms.add(new Platform(960,480));
-
         platforms.add(new Platform(400, 380));
         platforms.add(new Platform(720, 380));
-
         platforms.add(new Platform(560, 280));
-
         upgrades.add(new Upgrade(615, 240, random.nextInt(3)));
-
         player2.setImageLeft();
         player2.setDirection(Direction.LEFT);
     }
@@ -83,7 +76,6 @@ public class MyScreen extends Screen{
                 g2d.setColor(Color.BLACK);
                 g2d.fillRect(0,0,Commons.widht, Commons.height);
             }
-
             if(screenshakeCounter >= 21)
                 screenshake = false;
 
@@ -92,7 +84,6 @@ public class MyScreen extends Screen{
             screenshakeCounter = 0;
             g2d.drawImage(background.getImage(), background.getX(),background.getY(),null);
         }
-
     }
 
     private void addUpgrade() {
@@ -150,7 +141,6 @@ public class MyScreen extends Screen{
             GameThread.running = false;
         }
 
-
         player1.setCounterPauseShoot(player1.getCounterPauseShoot() + 1);
         player1.moveShots(player2);
         player1.checkJumpState();
@@ -198,49 +188,40 @@ public class MyScreen extends Screen{
     }
 
     private void checkInputs() {
-
         if(keyboardListener.isKeyPressed(KeyEvent.VK_A)){
             player1.setX(player1.getX() - player1.getSpeed() / player1.getSpeedDivider());
             player1.setDirection(Direction.LEFT);
             player1.setImageLeft();
         }
-
         if(keyboardListener.isKeyPressed(KeyEvent.VK_D)){
             player1.setX(player1.getX() + player1.getSpeed() / player1.getSpeedDivider());
             player1.setDirection(Direction.RIGHT);
             player1.setImageRight();
 
         }
-
         if(keyboardListener.isKeyPressed(KeyEvent.VK_CONTROL)){
             player1.addShot(new Shot(player1.getX(), player1.getY(), player1.getDirection()));
         }
-
         if(keyboardListener.isKeyPressed(KeyEvent.VK_SPACE) && !player1.isJumping()){
             player1.jump();
         }
-
         if(getGame().getKeyboardListener().isKeyPressed(KeyEvent.VK_LEFT)) {
             player2.setX(player2.getX() - player2.getSpeed() / player2.getSpeedDivider());
             player2.setDirection(Direction.LEFT);
             player2.setImageLeft();
         }
-
         if(getGame().getKeyboardListener().isKeyPressed(KeyEvent.VK_RIGHT)) {
             player2.setX(player2.getX() + player2.getSpeed() / player2.getSpeedDivider());
             player2.setDirection(Direction.RIGHT);
             player2.setImageRight();
 
         }
-
         if(keyboardListener.isKeyPressed(KeyEvent.VK_UP) && !player2.isJumping()){
             player2.jump();
         }
-
         if(keyboardListener.isKeyPressed(KeyEvent.VK_DOWN)){
             player2.addShot(new Shot(player2.getX(), player2.getY(), player2.getDirection()));
         }
-
     }
 
 }
