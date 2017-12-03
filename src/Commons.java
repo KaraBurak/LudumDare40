@@ -3,8 +3,8 @@
  */
 public interface Commons {
 
-    int widht = 800;
-    int height = 500;
+    int widht = 1280;
+    int height = 720;
 
     String title = "WizardClash";
 

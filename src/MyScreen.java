@@ -28,8 +28,19 @@ public class MyScreen extends Screen{
     @Override
     public void onCreate() {
         System.out.println("Creating");
-        platforms.add(new Platform(50,350));
-        platforms.add(new Platform(250,350));
+        platforms.add(new Platform(160,480));
+        platforms.add(new Platform(320,480));
+        platforms.add(new Platform(480,480));
+        platforms.add(new Platform(640,480));
+        platforms.add(new Platform(800,480));
+        platforms.add(new Platform(960,480));
+
+        platforms.add(new Platform(400, 380));
+        platforms.add(new Platform(720, 380));
+
+        platforms.add(new Platform(560, 280));
+
+
     }
 
     @Override
