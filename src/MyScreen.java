@@ -80,16 +80,29 @@ public class MyScreen extends Screen{
                 it.remove();
                 switch (upgrade.getUpgradeType()){
                     case ICE:
+                        player1.setUpgradeIceCounter(player1.getUpgradeStoneCounter() + 1);
                         break;
                     case STONE:
+                        player1.setUpgradeStoneCounter(player1.getUpgradeStoneCounter() + 1);
                         break;
                     case LIGHTNING:
-                        player1.setSpeed(player1.getSpeed() * 2);
+                        player1.setUpgrageLightningCounter(player1.getUpgrageLightningCounter() + 1);
                         break;
                 }
             }
             if (Sprite.intersects(player2, upgrade)){
                 it.remove();
+                switch (upgrade.getUpgradeType()){
+                    case ICE:
+                        player2.setUpgradeIceCounter(player1.getUpgradeStoneCounter() + 1);
+                        break;
+                    case STONE:
+                        player2.setUpgradeStoneCounter(player1.getUpgradeStoneCounter() + 1);
+                        break;
+                    case LIGHTNING:
+                        player2.setUpgrageLightningCounter(player1.getUpgrageLightningCounter() + 1);
+                        break;
+                }
             }
         }
     }
@@ -144,13 +157,13 @@ public class MyScreen extends Screen{
     private void checkInputs() {
 
         if(keyboardListener.isKeyPressed(KeyEvent.VK_A)){
-            player1.setX(player1.getX() - player1.getSpeed());
+            player1.setX((int) (player1.getX() - player1.getSpeed()));
             player1.setDirection(Direction.LEFT);
             player1.setImageLeft();
         }
 
         if(keyboardListener.isKeyPressed(KeyEvent.VK_D)){
-            player1.setX(player1.getX() + player1.getSpeed());
+            player1.setX((int) (player1.getX() + player1.getSpeed()));
             player1.setDirection(Direction.RIGHT);
             player1.setImageRight();
 
@@ -165,13 +178,13 @@ public class MyScreen extends Screen{
         }
 
         if(getGame().getKeyboardListener().isKeyPressed(KeyEvent.VK_LEFT)) {
-            player2.setX(player2.getX() - player2.getSpeed());
+            player2.setX((int) (player2.getX() - player2.getSpeed()));
             player2.setDirection(Direction.LEFT);
             player2.setImageLeft();
         }
 
         if(getGame().getKeyboardListener().isKeyPressed(KeyEvent.VK_RIGHT)) {
-            player2.setX(player2.getX() + player2.getSpeed());
+            player2.setX((int) (player2.getX() + player2.getSpeed()));
             player2.setDirection(Direction.RIGHT);
             player2.setImageRight();
 

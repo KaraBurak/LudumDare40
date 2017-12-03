@@ -21,6 +21,12 @@ public class Player extends Sprite {
     private int shotSpeed = 5;
     private ArrayList<Shot> shots = new ArrayList<>();
 
+    private int upgradeIceCounter = 0;
+    private int upgradeStoneCounter = 0;
+    private int upgrageLightningCounter = 0;
+
+    private double fallingSpeed = 2;
+
     private int hitTimes = 0;
 
     public int getHitTimes() {
@@ -34,13 +40,13 @@ public class Player extends Sprite {
     private ImageIcon imageIconRight;
     private ImageIcon imageIconLeft;
 
-    private int speed = 2;
+    private double speed = 2;
 
-    public int getSpeed() {
+    public double getSpeed() {
         return speed;
     }
 
-    public void setSpeed(int speed) {
+    public void setSpeed(double speed) {
         this.speed = speed;
     }
 
@@ -59,9 +65,34 @@ public class Player extends Sprite {
         direction = Direction.RIGHT;
     }
 
+    public int getUpgradeIceCounter() {
+        return upgradeIceCounter;
+    }
+
+    public void setUpgradeIceCounter(int upgradeIceCounter) {
+        this.upgradeIceCounter = upgradeIceCounter;
+    }
+
+    public int getUpgradeStoneCounter() {
+        return upgradeStoneCounter;
+    }
+
+    public void setUpgradeStoneCounter(int upgradeStoneCounter) {
+        this.upgradeStoneCounter = upgradeStoneCounter;
+    }
+
+    public int getUpgrageLightningCounter() {
+        return upgrageLightningCounter;
+    }
+
+    public void setUpgrageLightningCounter(int upgrageLightningCounter) {
+        this.upgrageLightningCounter = upgrageLightningCounter;
+    }
+
     public void addShot(Shot shot){
         if(counterPauseShoot >= pauseShootTime){
             counterPauseShoot = 0;
+
             shots.add(shot);
         }
     }
@@ -82,6 +113,14 @@ public class Player extends Sprite {
         return hasHit;
     }
 
+    public double getFallingSpeed() {
+        return fallingSpeed;
+    }
+
+    public void setFallingSpeed(double fallingSpeed) {
+        this.fallingSpeed = fallingSpeed;
+    }
+
     public void moveShots(Player player){
         for(Iterator<Shot> it = shots.iterator(); it.hasNext();){
             Shot shot = it.next();
@@ -89,6 +128,15 @@ public class Player extends Sprite {
                 it.remove();
             }else if(Sprite.intersects(player,shot)){
                 it.remove();
+
+                if (upgradeIceCounter > 0){
+                    player.setSpeed(player.getSpeed() - 0.2);
+                }
+
+                if(upgradeStoneCounter > 0){
+                    player.setFallingSpeed(player.getFallingSpeed() + 0.2);
+                }
+
                 player.setKnockback(true);
                 player.setJumping(false);
                 player.setHitTimes(player.getHitTimes() + 1);
@@ -118,13 +166,13 @@ public class Player extends Sprite {
     public void checkJumpState(){
         if(jumping){
             if(jumpCount < JUMPCOUNTERTHRESH){
-                y -= 5;
+                y -= 6;
             }else {
                 checkFalling();
-                if (!falling){
-                    jumpCount = jumpCount*2;
+                if (falling){
+                    jumpCount = JUMPCOUNTERTHRESH*2;
                 }
-                y += 2;
+                y += fallingSpeed;
             }
             jumpCount++;
             if(jumpCount >= JUMPCOUNTERTHRESH*2){
@@ -138,12 +186,12 @@ public class Player extends Sprite {
     public void checkFalling() {
         falling = true;
         for (Platform platform : MyScreen.platforms){
-            if (y + i_height - 4 < platform.getY() && Sprite.intersects(platform, this)){
+            if (y + i_height - 10 < platform.getY() && Sprite.intersects(platform, this)){
                 falling = false;
             }
         }
         if (falling){
-            y += 1;
+            y += fallingSpeed;
         }
     }
 
