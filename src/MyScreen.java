@@ -95,14 +95,13 @@ public class MyScreen extends Screen{
         player1.setCounterPauseShoot(player1.getCounterPauseShoot() + 1);
         player1.moveShots(player2);
         player1.checkJumpState();
-        player1.checkFalling();
-
         player1.checkKockback();
-        player2.checkKockback();
+        player1.checkFalling();
 
         player2.setCounterPauseShoot(player2.getCounterPauseShoot() + 1);
         player2.moveShots(player1);
         player2.checkJumpState();
+        player2.checkKockback();
         player2.checkFalling();
     }
 
