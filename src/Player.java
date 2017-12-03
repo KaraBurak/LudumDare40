@@ -13,6 +13,11 @@ public class Player extends Sprite {
     int counterPauseShoot = 101;
     private LoadingShotRectangle loadingShotRectangle;
 
+    private boolean knockback = false;
+
+    private int knockbackCount = 0;
+    private final int KNOCKBACKTHRESH = 20;
+
     public void setCounterPauseShoot(int counterPauseShoot) {
         this.counterPauseShoot = counterPauseShoot;
     }
@@ -97,6 +102,10 @@ public class Player extends Sprite {
         return hasHit;
     }
 
+    public void setKnockback(boolean knockback) {
+        this.knockback = knockback;
+    }
+
     public void moveShots(Player player){
         for(Iterator<Shot> it = shots.iterator(); it.hasNext();){
 
@@ -106,6 +115,7 @@ public class Player extends Sprite {
                 it.remove();
             }else if(Sprite.intersects(player,shot)){
                 it.remove();
+                player.setKnockback(true);
             }else {
 
                 switch (shot.getDirection()) {
@@ -157,24 +167,40 @@ public class Player extends Sprite {
                 falling = true;
                 jumpCount = 0;
             }
-
         }
     }
 
     public void checkFalling() {
-
         falling = true;
-
         for (Platform platform : MyScreen.platforms){
             if (y + i_height - 2 < platform.getY() && Sprite.intersects(platform, this)){
                 falling = false;
             }
         }
-
         if (falling){
             y += 1;
         }
+    }
 
+    public void checkKockback(){
+        if(knockback){
+            if(knockbackCount < KNOCKBACKTHRESH*2){
+                y -= 3;
+            }
+
+            knockbackCount++;
+
+            if(knockbackCount >= KNOCKBACKTHRESH){
+                x++;
+            }
+
+            if(knockbackCount >= KNOCKBACKTHRESH * 2){
+                knockback = false;
+                falling = true;
+                knockbackCount = 0;
+            }
+
+        }
     }
 
 }
