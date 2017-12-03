@@ -15,8 +15,8 @@ public class MyGame {
 
     public MyGame(){
         game = new Game();
-        player1 = new Player(50,250, player1PathImageRight, player1PathImageLeft);
-        player2 = new Player(250,250, player2PathImageRight, player2PathImageLeft);
+        player1 = new Player(200,410, player1PathImageRight, player1PathImageLeft);
+        player2 = new Player(1050,410, player2PathImageRight, player2PathImageLeft);
         game.showScreen(new MyScreen(game,player1,player2));
     }
 

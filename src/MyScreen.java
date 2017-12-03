@@ -40,7 +40,8 @@ public class MyScreen extends Screen{
 
         platforms.add(new Platform(560, 280));
 
-
+        player2.setImageLeft();
+        player2.setDirection(Direction.LEFT);
     }
 
     @Override
