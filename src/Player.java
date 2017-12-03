@@ -20,6 +20,16 @@ public class Player extends Sprite {
     private int jumpCount = 0;
     private ArrayList<Shot> shots = new ArrayList<>();
 
+    private int speed = 2;
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
     public Player(int x, int y, String pathToImage) {
         super(x, y);
         ii = new ImageIcon(this.getClass().getResource(pathToImage));

@@ -55,7 +55,7 @@ public class MyScreen extends Screen{
         if(newUpgradeCounter >= newUpgradeThresh){
             newUpgradeCounter = 0;
             newUpgradeThresh = random.nextInt((500 - 200) + 1) + 200;
-            upgrades.add(new Upgrade(20,200));
+            upgrades.add(new Upgrade(20,200,random.nextInt(3)));
         }
     }
 
@@ -64,6 +64,15 @@ public class MyScreen extends Screen{
             Upgrade upgrade = it.next();
             if(Sprite.intersects(player1, upgrade)){
                 it.remove();
+                switch (upgrade.getUpgradeType()){
+                    case ICE:
+                        break;
+                    case STONE:
+                        break;
+                    case LIGHTNING:
+                        player1.setSpeed(player1.getSpeed() * 2);
+                        break;
+                }
             }
             if (Sprite.intersects(player2, upgrade)){
                 it.remove();
@@ -122,12 +131,12 @@ public class MyScreen extends Screen{
     private void checkInputs() {
 
         if(keyboardListener.isKeyPressed(KeyEvent.VK_A)){
-            player1.setX(player1.getX() - 1);
+            player1.setX(player1.getX() - player1.getSpeed());
             player1.setDirection(Direction.LEFT);
         }
 
         if(keyboardListener.isKeyPressed(KeyEvent.VK_D)){
-            player1.setX(player1.getX() + 1);
+            player1.setX(player1.getX() + player1.getSpeed());
             player1.setDirection(Direction.RIGHT);
         }
 
@@ -140,12 +149,12 @@ public class MyScreen extends Screen{
         }
 
         if(getGame().getKeyboardListener().isKeyPressed(KeyEvent.VK_LEFT)) {
-            player2.setX(player2.getX() - 2);
+            player2.setX(player2.getX() - player2.getSpeed());
             player2.setDirection(Direction.LEFT);
         }
 
         if(getGame().getKeyboardListener().isKeyPressed(KeyEvent.VK_RIGHT)) {
-            player2.setX(player2.getX() + 2);
+            player2.setX(player2.getX() + player2.getSpeed());
             player2.setDirection(Direction.RIGHT);
         }
 
