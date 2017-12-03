@@ -18,12 +18,15 @@ public class MyScreen extends Screen{
     public static ArrayList<Platform> platforms = new ArrayList<>();
     private ArrayList<Upgrade> upgrades = new ArrayList<>();
 
+    private final Background background;
+
     static String winningMessage;
 
     public MyScreen(Game game, Player player1, Player player2) {
         super(game);
         this.player1 = player1;
         this.player2 = player2;
+        background = new Background(0,0);
         this.keyboardListener = game.getKeyboardListener();
     }
 
@@ -58,11 +61,16 @@ public class MyScreen extends Screen{
 
     @Override
     public void onDraw(Graphics2D g2d) {
+        drawBackground(g2d);
         drawPlatforms(g2d);
         drawUpgrades(g2d);
         drawPlayer(g2d);
         drawShots(g2d);
         drawEffects(g2d);
+    }
+
+    private void drawBackground(Graphics2D g2d) {
+        g2d.drawImage(background.getImage(), background.getX(),background.getY(),null);
     }
 
     private void addUpgrade() {
