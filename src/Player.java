@@ -79,9 +79,7 @@ public class Player extends Sprite {
 
     public void setUpgradeIceCounter(int upgradeIceCounter) {
         this.upgradeIceCounter = upgradeIceCounter;
-        if(this.upgradeIceCounter - 1 != 0){
-            speed -= this.upgradeIceCounter - 1;
-        }
+        speed -= this.upgradeIceCounter - 1;
     }
 
     public int getUpgradeStoneCounter() {
@@ -90,9 +88,7 @@ public class Player extends Sprite {
 
     public void setUpgradeStoneCounter(int upgradeStoneCounter) {
         this.upgradeStoneCounter = upgradeStoneCounter;
-        if(this.upgradeStoneCounter - 1 != 0){
-            fallingSpeed -= this.upgradeStoneCounter - 1;
-        }
+        fallingSpeed -= this.upgradeStoneCounter - 1;
     }
 
     public int getUpgrageLightningCounter() {
@@ -101,11 +97,9 @@ public class Player extends Sprite {
 
     public void setUpgrageLightningCounter(int upgrageLightningCounter) {
         this.upgrageLightningCounter = upgrageLightningCounter;
-        if(this.upgrageLightningCounter - 1 != 0){
-            knockbackMultiplicator += 0.1;
-        }else {
+        knockbackMultiplicator += 0.1;
+        if(this.upgrageLightningCounter - 1 == 0)
             speed += 1;
-        }
     }
 
     public void addShot(Shot shot){
