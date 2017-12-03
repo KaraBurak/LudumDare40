@@ -18,6 +18,16 @@ public class Player extends Sprite {
     private int knockbackCount = 0;
     private final int KNOCKBACKTHRESH = 20;
 
+    private Direction knockbackDirection;
+
+    public Direction getKnockbackDirection() {
+        return knockbackDirection;
+    }
+
+    public void setKnockbackDirection(Direction knockbackDirection) {
+        this.knockbackDirection = knockbackDirection;
+    }
+
     public void setCounterPauseShoot(int counterPauseShoot) {
         this.counterPauseShoot = counterPauseShoot;
     }
@@ -116,6 +126,7 @@ public class Player extends Sprite {
             }else if(Sprite.intersects(player,shot)){
                 it.remove();
                 player.setKnockback(true);
+                player.setKnockbackDirection(shot.getDirection());
             }else {
 
                 switch (shot.getDirection()) {
@@ -191,7 +202,11 @@ public class Player extends Sprite {
             knockbackCount++;
 
             if(knockbackCount >= KNOCKBACKTHRESH){
-                x++;
+
+                if(knockbackDirection == Direction.LEFT)
+                    x--;
+                if(knockbackDirection == Direction.RIGHT)
+                    x++;
             }
 
             if(knockbackCount >= KNOCKBACKTHRESH * 2){
