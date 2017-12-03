@@ -7,8 +7,8 @@ import java.util.Iterator;
  */
 public class Player extends Sprite {
     private Direction direction;
-    int pauseShootTime = 80;
-    int counterPauseShoot = 81;
+    int pauseShootTime = 70;
+    int counterPauseShoot = 71;
     private LoadingShotRectangle loadingShotRectangle;
     private boolean knockback = false;
     private int knockbackCount = 0;
@@ -18,7 +18,7 @@ public class Player extends Sprite {
     private boolean falling = true;
     private boolean jumping = false;
     private int jumpCount = 0;
-    private int shotSpeed = 5;
+    private int shotSpeed = 8;
     private ArrayList<Shot> shots = new ArrayList<>();
     private int speedDivider = 1;
     private double knockbackMultiplicator = 1;
@@ -29,7 +29,7 @@ public class Player extends Sprite {
     private int hitTimes = 0;
     private ImageIcon imageIconRight;
     private ImageIcon imageIconLeft;
-    private int speed = 8;
+    private int speed = 7;
 
     public Player(int x, int y, String pathToImage1, String pathToImage2) {
         super(x, y);
@@ -71,6 +71,10 @@ public class Player extends Sprite {
         return hasHit;
     }
 
+    public void setSpeedDivider(int speedDivider) {
+        this.speedDivider = speedDivider;
+    }
+
     public void moveShots(Player player){
         for(Iterator<Shot> it = shots.iterator(); it.hasNext();){
             Shot shot = it.next();
@@ -80,11 +84,11 @@ public class Player extends Sprite {
                 it.remove();
 
                 if (upgradeIceCounter > 0){
-                    player.setSpeed((int) (player.getSpeed() - 0.1));
+                    player.setSpeed((int) (player.getSpeed() - 0.5));
                 }
 
                 if(upgradeStoneCounter > 0){
-                    player.setFallingSpeed((int) (player.getFallingSpeed() - 0.1));
+                    player.setSpeedDivider((int) (player.getSpeedDivider() + 0.5));
                 }
 
                 player.setKnockback(true);
@@ -268,7 +272,7 @@ public class Player extends Sprite {
 
     public void setUpgradeStoneCounter(int upgradeStoneCounter) {
         this.upgradeStoneCounter = upgradeStoneCounter;
-        fallingSpeed -= this.upgradeStoneCounter - 1;
+        speedDivider += this.upgradeStoneCounter;
     }
 
     public int getUpgrageLightningCounter() {
@@ -277,7 +281,7 @@ public class Player extends Sprite {
 
     public void setUpgrageLightningCounter(int upgrageLightningCounter) {
         this.upgrageLightningCounter = upgrageLightningCounter;
-        knockbackMultiplicator += 0.1;
+        knockbackMultiplicator += 0.3;
         if(this.upgrageLightningCounter - 1 == 0)
             speed += 1;
     }
