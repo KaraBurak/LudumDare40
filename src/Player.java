@@ -20,6 +20,9 @@ public class Player extends Sprite {
     private int jumpCount = 0;
     private ArrayList<Shot> shots = new ArrayList<>();
 
+    private ImageIcon imageIconRight;
+    private ImageIcon imageIconLeft;
+
     private int speed = 2;
 
     public int getSpeed() {
@@ -30,9 +33,13 @@ public class Player extends Sprite {
         this.speed = speed;
     }
 
-    public Player(int x, int y, String pathToImage) {
+    public Player(int x, int y, String pathToImage1, String pathToImage2) {
         super(x, y);
-        ii = new ImageIcon(this.getClass().getResource(pathToImage));
+        ii = new ImageIcon(this.getClass().getResource(pathToImage1));
+
+        imageIconRight = new ImageIcon(this.getClass().getResource(pathToImage1));
+        imageIconLeft = new ImageIcon(this.getClass().getResource(pathToImage2));
+
         image = ii.getImage();
         isVisible = true;
         i_width = image.getWidth(null);
@@ -198,6 +205,14 @@ public class Player extends Sprite {
 
     public void setKnockback(boolean knockback) {
         this.knockback = knockback;
+    }
+
+    public void setImageLeft() {
+        image = imageIconLeft.getImage();
+    }
+
+    public void setImageRight() {
+        image = imageIconRight.getImage();
     }
 
 }

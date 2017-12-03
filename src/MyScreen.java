@@ -143,11 +143,14 @@ public class MyScreen extends Screen{
         if(keyboardListener.isKeyPressed(KeyEvent.VK_A)){
             player1.setX(player1.getX() - player1.getSpeed());
             player1.setDirection(Direction.LEFT);
+            player1.setImageLeft();
         }
 
         if(keyboardListener.isKeyPressed(KeyEvent.VK_D)){
             player1.setX(player1.getX() + player1.getSpeed());
             player1.setDirection(Direction.RIGHT);
+            player1.setImageRight();
+
         }
 
         if(keyboardListener.isKeyPressed(KeyEvent.VK_CONTROL)){
@@ -161,11 +164,14 @@ public class MyScreen extends Screen{
         if(getGame().getKeyboardListener().isKeyPressed(KeyEvent.VK_LEFT)) {
             player2.setX(player2.getX() - player2.getSpeed());
             player2.setDirection(Direction.LEFT);
+            player2.setImageLeft();
         }
 
         if(getGame().getKeyboardListener().isKeyPressed(KeyEvent.VK_RIGHT)) {
             player2.setX(player2.getX() + player2.getSpeed());
             player2.setDirection(Direction.RIGHT);
+            player2.setImageRight();
+
         }
 
         if(keyboardListener.isKeyPressed(KeyEvent.VK_UP) && !player2.isJumping()){
