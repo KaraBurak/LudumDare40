@@ -12,13 +12,24 @@ public class Player extends Sprite {
     private LoadingShotRectangle loadingShotRectangle;
     private boolean knockback = false;
     private int knockbackCount = 0;
-    private final int KNOCKBACKTHRESH = 20;
+    private final int KNOCKBACKTHRESH = 15;
     private Direction knockbackDirection;
     private final int JUMPCOUNTERTHRESH = 30;
     private boolean falling = true;
     private boolean jumping = false;
     private int jumpCount = 0;
+    private int shotSpeed = 5;
     private ArrayList<Shot> shots = new ArrayList<>();
+
+    private int hitTimes = 0;
+
+    public int getHitTimes() {
+        return hitTimes;
+    }
+
+    public void setHitTimes(int hitTimes) {
+        this.hitTimes = hitTimes;
+    }
 
     private ImageIcon imageIconRight;
     private ImageIcon imageIconLeft;
@@ -80,21 +91,16 @@ public class Player extends Sprite {
                 it.remove();
                 player.setKnockback(true);
                 player.setJumping(false);
+                player.setHitTimes(player.getHitTimes() + 1);
                 player.setKnockbackDirection(shot.getDirection());
             }else {
 
                 switch (shot.getDirection()) {
-                    case UP:
-                        shot.setY(shot.getY() - 2);
-                        break;
-                    case DOWN:
-                        shot.setY(shot.getY() + 2);
-                        break;
                     case LEFT:
-                        shot.setX(shot.getX() - 2);
+                        shot.setX(shot.getX() - shotSpeed);
                         break;
                     case RIGHT:
-                        shot.setX(shot.getX() + 2);
+                        shot.setX(shot.getX() + shotSpeed);
                         break;
                 }
             }
@@ -143,17 +149,15 @@ public class Player extends Sprite {
 
     public void checkKockback(){
         if(knockback){
-            if(knockbackCount < KNOCKBACKTHRESH*2){
-                y -= 3;
-            }
-            knockbackCount++;
-            if(knockbackCount >= KNOCKBACKTHRESH){
 
-                if(knockbackDirection == Direction.LEFT)
-                    x--;
-                if(knockbackDirection == Direction.RIGHT)
-                    x++;
-            }
+            knockbackCount++;
+            y -= 2 * ((hitTimes / 4) + 1);
+
+            if(knockbackDirection == Direction.LEFT)
+                x -= 2 * ((hitTimes / 2) + 1);
+            if(knockbackDirection == Direction.RIGHT)
+                x += 2 * ((hitTimes / 2) + 1);
+
             if(knockbackCount >= KNOCKBACKTHRESH * 2){
                 knockback = false;
                 falling = true;
