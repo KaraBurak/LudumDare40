@@ -9,6 +9,7 @@ public class Game {
 
     private final JFrame window = new JFrame();
     private final GameThread gameThread;
+    private final MusicThread musicThread;
     private Screen screen;
     private final KeyboardListener keyboardListener;
 
@@ -29,12 +30,14 @@ public class Game {
         });
 
         gameThread = new GameThread(this);
+        musicThread = new MusicThread();
         keyboardListener = new KeyboardListener();
 
         window.add(gameThread);
         window.addKeyListener(keyboardListener);
 
         new Thread(gameThread).start();
+        new Thread(musicThread).start();
     }
 
     public void showScreen(MyScreen myScreen){
