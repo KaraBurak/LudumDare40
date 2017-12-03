@@ -29,9 +29,13 @@ public class Player extends Sprite {
     private int upgradeStoneCounter = 0;
     private int upgrageLightningCounter = 0;
 
-    private int fallingSpeed = 3;
+    private int fallingSpeed = 2;
 
     private int hitTimes = 0;
+
+    public void setKnockbackCount(int knockbackCount) {
+        this.knockbackCount = knockbackCount;
+    }
 
     public int getHitTimes() {
         return hitTimes;
@@ -100,7 +104,6 @@ public class Player extends Sprite {
         if(this.upgrageLightningCounter - 1 != 0){
             knockbackMultiplicator += 0.1;
         }else {
-            System.out.println("moa speed");
             speed += 1;
         }
     }
@@ -154,6 +157,7 @@ public class Player extends Sprite {
                 }
 
                 player.setKnockback(true);
+                player.setKnockbackCount(0);
                 player.setJumping(false);
                 player.setHitTimes(player.getHitTimes() + 1);
                 player.setKnockbackDirection(shot.getDirection());

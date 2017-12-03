@@ -18,6 +18,8 @@ public class MyScreen extends Screen{
     public static ArrayList<Platform> platforms = new ArrayList<>();
     private ArrayList<Upgrade> upgrades = new ArrayList<>();
 
+    static String winningMessage;
+
     public MyScreen(Game game, Player player1, Player player2) {
         super(game);
         this.player1 = player1;
@@ -27,7 +29,6 @@ public class MyScreen extends Screen{
 
     @Override
     public void onCreate() {
-        System.out.println("Creating");
         platforms.add(new Platform(160,480));
         platforms.add(new Platform(320,480));
         platforms.add(new Platform(480,480));
@@ -108,6 +109,18 @@ public class MyScreen extends Screen{
     }
 
     private void checkPlayers() {
+
+        if(player1.getX() < 0 || player1.getY() < 0 || player1.getX() + player1.getI_width() > Commons.widht || player1.getY() + player1.getI_height() > Commons.height){
+            winningMessage = "Player 2 wins";
+            GameThread.running = false;
+        }
+
+        if(player2.getX() < 0 || player2.getY() < 0 || player2.getX() + player2.getI_width() > Commons.widht || player2.getY() + player2.getI_height() > Commons.height){
+            winningMessage = "Player 1 wins";
+            GameThread.running = false;
+        }
+
+
         player1.setCounterPauseShoot(player1.getCounterPauseShoot() + 1);
         player1.moveShots(player2);
         player1.checkJumpState();

@@ -31,6 +31,7 @@ public class GameThread extends JPanel implements Runnable {
                 loops++;
             }
         }
+        JOptionPane.showMessageDialog(null, MyScreen.winningMessage);
     }
 
     @Override
