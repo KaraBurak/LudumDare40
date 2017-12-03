@@ -7,8 +7,8 @@ import java.util.Iterator;
  */
 public class Player extends Sprite {
     private Direction direction;
-    int pauseShootTime = 100;
-    int counterPauseShoot = 101;
+    int pauseShootTime = 80;
+    int counterPauseShoot = 81;
     private LoadingShotRectangle loadingShotRectangle;
     private boolean knockback = false;
     private int knockbackCount = 0;
@@ -223,9 +223,9 @@ public class Player extends Sprite {
             y -= 2 * ((hitTimes / 3) + 1) * knockbackMultiplicator;
 
             if(knockbackDirection == Direction.LEFT)
-                x -= 2 * ((hitTimes / 2) + 1) * knockbackMultiplicator;
+                x -= 2 * ((hitTimes / 1.5) + 1) * knockbackMultiplicator;
             if(knockbackDirection == Direction.RIGHT)
-                x += 2 * ((hitTimes / 2) + 1) * knockbackMultiplicator;
+                x += 2 * ((hitTimes / 1.5) + 1) * knockbackMultiplicator;
 
             if(knockbackCount >= KNOCKBACKTHRESH * 2){
                 knockback = false;
