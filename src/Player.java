@@ -81,6 +81,22 @@ public class Player extends Sprite {
         }
     }
 
+    public boolean collisionShots(ArrayList<Shot> shots){
+        boolean hasHit = false;
+        for (int i = this.shots.size() - 1; i >= 0; i--) {
+            Shot shot = this.shots.get(i);
+            for (int j = shots.size() - 1; j >= 0; j--) {
+                Shot shot2 = shots.get(j);
+                if (intersects(shot, shot2)) {
+                    this.shots.remove(shot);
+                    shots.remove(shot2);
+                    hasHit = true;
+                }
+            }
+        }
+        return hasHit;
+    }
+
     public void moveShots(Player player){
         for(Iterator<Shot> it = shots.iterator(); it.hasNext();){
 

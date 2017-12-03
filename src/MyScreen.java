@@ -30,6 +30,7 @@ public class MyScreen extends Screen{
     @Override
     public void onUpdate() {
         checkPlayers();
+        player1.collisionShots(player2.getShots());
         checkInputs();
     }
 
