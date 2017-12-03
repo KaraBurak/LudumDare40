@@ -186,17 +186,18 @@ public class Player extends Sprite {
 
     public void checkJumpState(){
         if(jumping){
+            falling = false;
             if(jumpCount < JUMPCOUNTERTHRESH){
-                y -= 8;
+                y -= 4;
             }else {
                 checkFalling();
                 if (falling){
-                    jumpCount = JUMPCOUNTERTHRESH*2;
+                    jumpCount = JUMPCOUNTERTHRESH;
                 }
                 y += fallingSpeed;
             }
             jumpCount++;
-            if(jumpCount >= JUMPCOUNTERTHRESH*2){
+            if(jumpCount >= JUMPCOUNTERTHRESH){
                 jumping = false;
                 falling = true;
                 jumpCount = 0;
@@ -211,6 +212,9 @@ public class Player extends Sprite {
                 falling = false;
             }
         }
+        if(jumping)
+            falling = false;
+
         speedDivider = 1;
         if (falling){
             speedDivider = 2;
@@ -224,6 +228,7 @@ public class Player extends Sprite {
 
     public void checkKockback(){
         if(knockback){
+            falling = true;
             knockbackCount++;
             y -= 2 * ((hitTimes / 3) + 1) * knockbackMultiplicator;
 
