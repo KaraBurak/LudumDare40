@@ -40,6 +40,8 @@ public class MyScreen extends Screen{
 
         platforms.add(new Platform(560, 280));
 
+        upgrades.add(new Upgrade(615, 240, random.nextInt(3)));
+
         player2.setImageLeft();
         player2.setDirection(Direction.LEFT);
     }
@@ -67,7 +69,7 @@ public class MyScreen extends Screen{
         if(newUpgradeCounter >= newUpgradeThresh){
             newUpgradeCounter = 0;
             newUpgradeThresh = random.nextInt((500 - 200) + 1) + 200;
-            upgrades.add(new Upgrade(20,200,random.nextInt(3)));
+            upgrades.add(new Upgrade(random.nextInt((1000 - 200) + 1) + 200,random.nextInt((408-280) + 1) + 280,random.nextInt(3)));
         }
     }
 
